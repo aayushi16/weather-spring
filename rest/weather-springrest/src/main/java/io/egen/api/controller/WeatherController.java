@@ -23,9 +23,7 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 //@CrossOrigin
 //@CrossOrigin(origins = "http://mocker.egen.io", allowedHeaders="*",allowCredentials="true", maxAge=3600)
-//@CrossOrigin(origins = "http://mocker.egen.io",
-//maxAge = 3600, allowCredentials = "false") 
-//@CrossOrigin(origins = "http://mocker.egen.io", maxAge = 3600)
+
 @RequestMapping(value=URI.WEATHER)
 @Api(tags="weather")
 public class WeatherController {
