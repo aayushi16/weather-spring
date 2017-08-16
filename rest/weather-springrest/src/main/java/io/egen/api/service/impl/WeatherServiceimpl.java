@@ -51,12 +51,12 @@ public class WeatherServiceimpl implements WeatherService{
 	public Weather create(Weather weather) {
 		// TODO Auto-generated method stub
 		//windRepo.createWind(weather.getWind());
-		
-		Weather existing = repository.findByCity(weather.getCity());
-		if(existing != null){
-			//throw an runtime exception here which should return 400 to client	Bad Request. Weather Reading already exists
-			throw new BadRequestException("Weather Reading for this City " +weather.getCity()+ "already exist");
-			}
+//		
+//		Weather existing = repository.findByCity(weather.getCity());
+//		if(existing != null){
+//			//throw an runtime exception here which should return 400 to client	Bad Request. Weather Reading already exists
+//			throw new BadRequestException("Weather Reading for this City " +weather.getCity()+ "already exist");
+//			}
 			return repository.create(weather);
 		}
 

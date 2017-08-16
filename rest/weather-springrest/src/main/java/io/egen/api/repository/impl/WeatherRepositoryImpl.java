@@ -22,19 +22,19 @@ public class WeatherRepositoryImpl implements WeatherRepository{
 		TypedQuery<Weather> query = em.createNamedQuery("Weather.findAll", Weather.class);
 		return query.getResultList();
 	}
-	@Override
-	public Weather findByCity(String city) {
-		// TODO Auto-generated method stub
-		TypedQuery<Weather> query = em.createNamedQuery("Weather.findByCity", Weather.class);
-		query.setParameter("pCity", city);
-		List<Weather> weather = query.getResultList();
-		if(!weather.isEmpty())
-		{
-			return weather.get(0);
-		}else{
-		return null;
-	}
-	}
+//	@Override
+//	public Weather findByCity(String city) {
+//		// TODO Auto-generated method stub
+//		TypedQuery<Weather> query = em.createNamedQuery("Weather.findByCity", Weather.class);
+//		query.setParameter("pCity", city);
+//		List<Weather> weather = query.getResultList();
+//		if(!weather.isEmpty())
+//		{
+//			return weather.get(0);
+//		}else{
+//		return null;
+//	}
+//	}
 	@Override
 	public Weather findOne(String id) {
 		// TODO Auto-generated method stub

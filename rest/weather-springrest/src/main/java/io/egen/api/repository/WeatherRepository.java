@@ -7,7 +7,7 @@ public interface WeatherRepository {
 	
 	public List<Weather> findAll();
 	public Weather findOne(String id);
-	public Weather findByCity(String city);
+	//public Weather findByCity(String city);
 	public Weather create(Weather weather);
 	public Weather update(Weather weather);
 	public void delete(Weather weather);
