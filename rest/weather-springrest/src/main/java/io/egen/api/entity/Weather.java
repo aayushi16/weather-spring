@@ -18,7 +18,8 @@ import javax.persistence.OneToOne;
 
 @NamedQueries({
 	@NamedQuery(name="Weather.findAll", query="SELECT w FROM Weather w ORDER BY w.city"),
-	@NamedQuery(name="Weather.findByCity", query="SELECT w FROM Weather w where w.city=:pCity")
+	@NamedQuery(name="Weather.latestWeather", query="SELECT w FROM Weather w where w.city=:pCity"),
+	@NamedQuery(name="Weather.latestWeatherProperty", query="SELECT w FROM Weather w where w.city=:pCity")
 })
 public class Weather {
 	
@@ -26,9 +27,9 @@ public class Weather {
 	private String id;
 	private String city;
 	private String description;
-	private int humidity;
-	private int pressure;
-	private int temperature;
+	private String humidity;
+	private String pressure;
+	private String temperature;
 	  @OneToOne(cascade = { CascadeType.ALL })
 	private Wind wind;
 	
@@ -67,27 +68,28 @@ public class Weather {
 		this.description = description;
 	}
 
-	public int getHumidity() {
+
+	public String getHumidity() {
 		return humidity;
 	}
 
-	public void setHumidity(int humidity) {
+	public void setHumidity(String humidity) {
 		this.humidity = humidity;
 	}
 
-	public int getPressure() {
+	public String getPressure() {
 		return pressure;
 	}
 
-	public void setPressure(int pressure) {
+	public void setPressure(String pressure) {
 		this.pressure = pressure;
 	}
 
-	public int getTemperature() {
+	public String getTemperature() {
 		return temperature;
 	}
 
-	public void setTemperature(int temperature) {
+	public void setTemperature(String temperature) {
 		this.temperature = temperature;
 	}
 
@@ -106,20 +108,5 @@ public class Weather {
 	public void setTimeStamp(String timeStamp) {
 		this.timeStamp = timeStamp;
 	}
-
-//	public Date getTimestamp() {
-//		return timestamp;
-//	}
-//
-//	public void setTimestamp(String timestamp) {
-//		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-//
-//		try {
-//			this.timestamp = date.parse(timestamp);
-//		} catch (ParseException e) {
-//			e.printStackTrace();
-//		}
-	
-	//}
 	
 }

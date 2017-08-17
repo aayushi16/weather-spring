@@ -44,19 +44,6 @@ public class WeatherController {
 	public List<Weather> findAll(){
 		return service.findAll();
 	}
-	
-	//@ResponseBody
-	@RequestMapping(method = RequestMethod.GET, value=URI.ID)
-	@ApiOperation(value="Find Weather Readings by Id", notes = "Returns a weather reading by id if it exist in the app")
-	@ApiResponses(value={
-			@ApiResponse(code=200, message="Success"),
-			@ApiResponse(code=404, message="Not Found"),
-			@ApiResponse(code=500, message="Internal Server error")
-	})
-	public Weather findOne(@PathVariable("id") String id){
-		return service.findOne(id);
-	}
-	
 	@RequestMapping(method = RequestMethod.POST)
 	@ApiOperation(value="Create Weather Readings", notes = "App that accepts Weather Readings")
 	@ApiResponses(value={
@@ -69,6 +56,50 @@ public class WeatherController {
 		return service.create(weather);
 	}
 	
+	//@ResponseBody
+	@RequestMapping(method = RequestMethod.GET, value="/latest/{city}")
+	@ApiOperation(value="Find Latest Weather for a given City", notes = "Returns a weather for a given city")
+	@ApiResponses(value={
+			@ApiResponse(code=200, message="Success"),
+			@ApiResponse(code=404, message="Not Found"),
+			@ApiResponse(code=500, message="Internal Server error")
+	})
+	public Weather latestWeather(@PathVariable("city") String city){
+		return service.latestWeather(city);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value="/latest/{city}/{property}")
+	@ApiOperation(value="Find Latest Weather Property for a given City", notes = "Returns particular property for a given city")
+	@ApiResponses(value={
+			@ApiResponse(code=200, message="Success"),
+			@ApiResponse(code=404, message="Not Found"),
+			@ApiResponse(code=500, message="Internal Server error")
+	})
+	public String latestWeatherProperty(@PathVariable("city") String city, @PathVariable("property") String property){
+		return service.latestWeatherProperty(city, property);
+	}
+//	@RequestMapping(method = RequestMethod.GET, value="/hourlyavgweather/{city}")
+//	@ApiOperation(value="Find Hourly Avg Weather for a given city", notes = "Returns Hourly Avg Weather")
+//	@ApiResponses(value={
+//			@ApiResponse(code=200, message="Success"),
+//			@ApiResponse(code=404, message="Not Found"),
+//			@ApiResponse(code=500, message="Internal Server error")
+//	})
+//	public List<Weather> hourlyAvgWeather(@PathVariable("city") String city){
+//		return service.hourlyAvgWeather(city);
+//	}
+//	
+//	@RequestMapping(method = RequestMethod.GET, value="/dailyavgweather/{city}/{date}")
+//	@ApiOperation(value="Find Daily Avg Weather for a given city", notes = "Returns Daily Avg Weather")
+//	@ApiResponses(value={
+//			@ApiResponse(code=200, message="Success"),
+//			@ApiResponse(code=404, message="Not Found"),
+//			@ApiResponse(code=500, message="Internal Server error")
+//	})
+//	public Weather dailyAvgWeather(@PathVariable("city") String city, @PathVariable("date") String date){
+//		return service.dailyAvgWeather(city, date);
+//	}
+//	
 	@RequestMapping(method = RequestMethod.PUT, value=URI.ID)
 	@ApiOperation(value="Update Weather Readings", notes = "Update an existing Weather Reading")
 	@ApiResponses(value={

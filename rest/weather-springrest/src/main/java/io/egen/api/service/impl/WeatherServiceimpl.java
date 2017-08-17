@@ -26,6 +26,12 @@ public class WeatherServiceimpl implements WeatherService{
 	public WeatherServiceimpl(WeatherRepository repository){
 		this.repository = repository;
 	}
+	@Override
+	@Transactional
+	public Weather create(Weather weather) {
+	
+			return repository.create(weather);
+		}
 	
 	@Override
 	@Transactional(readOnly=true)
@@ -35,35 +41,52 @@ public class WeatherServiceimpl implements WeatherService{
 	}
 
 	@Override
-	@Transactional(readOnly=true)
-	public Weather findOne(String id) {
-		// TODO Auto-generated method stub
-		Weather existing = repository.findOne(id);
-		if(existing == null){
-		//throw an runtime exception here which should return 404 to client	
-			throw new NotFoundException("Weather Reading with id " + id+ "does not exist");
+	public Weather latestWeather(String city) {
+
+		Weather existing= repository.latestWeather(city);
+		if (existing == null)
+		{
+			throw new NotFoundException("Latest Weather for City = " + city + " does not exist" );
 		}
 		return existing;
 	}
 
 	@Override
-	@Transactional
-	public Weather create(Weather weather) {
-		// TODO Auto-generated method stub
-		//windRepo.createWind(weather.getWind());
-//		
-//		Weather existing = repository.findByCity(weather.getCity());
-//		if(existing != null){
-//			//throw an runtime exception here which should return 400 to client	Bad Request. Weather Reading already exists
-//			throw new BadRequestException("Weather Reading for this City " +weather.getCity()+ "already exist");
-//			}
-			return repository.create(weather);
+	public String latestWeatherProperty(String city, String property) {
+		
+		String existing = repository.latestWeatherProperty(city, property);
+		
+		if (existing.isEmpty())
+		{
+			throw new NotFoundException("Latest Weather property = " + property+ " for city " + city + " does not exist");
 		}
-
+		return existing;
+	}
+//	@Override
+//	public List<Weather> hourlyAvgWeather(String city) {
+//		
+//		 List<Weather> existing = repository.hourlyAvgWeather(city);
+//		if (existing == null)
+//		{
+//			throw new NotFoundException("Hourly Average Weather for city = " + city + " does not exists");
+//		}
+//		return existing;
+//		
+//	}
+//	@Override
+//	public Weather dailyAvgWeather(String city, String date) {
+//		
+//		Weather existing = repository.dailyAvgWeather(city, date);
+//		if (existing==null)
+//		{
+//			throw new NotFoundException("Daily Average Weather for city = " + city + " does not exists");
+//		}
+//		return existing;
+//	}
 	@Override
 	@Transactional
 	public Weather update(String id, Weather weather) {
-		Weather existing = repository.findOne(id);
+		Weather existing = repository.latestWeather(id);
 		if(existing == null){
 		//throw an runtime exception here which should return 404 to client	
 			throw new NotFoundException("Weather Reading with id " + id+ "does not exist");
@@ -76,7 +99,7 @@ public class WeatherServiceimpl implements WeatherService{
 	public void delete(String id) {
 		// TODO Auto-generated method stub
 		
-		Weather existing = repository.findOne(id);
+		Weather existing = repository.latestWeather(id);
 		if(existing == null){
 		//throw an runtime exception here which should return 404 to client	
 			throw new NotFoundException("Weather Reading with id " + id+ "does not exist");
